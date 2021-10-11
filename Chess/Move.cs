@@ -10,6 +10,18 @@ namespace Chess
     {
         internal static bool CanMove(string movingFigure, string move)
         {
+            return CanMoveFrom()&&CanMoveTo(movingFigure) &&CanFigureMove(movingFigure);
+        }
+        static bool CanMoveFrom()
+        {
+            return true;
+        }
+        static bool CanMoveTo(string movingFigure)
+        {
+            return true;
+        }
+        static bool CanFigureMove(string movingFigure)
+        {
             return true;
         }
     }

@@ -19,15 +19,15 @@ namespace TestConsoleOfChess
             //  move quontity without pawn move, or check(50th rule of chess)                               0
             //  move number                                                                                 1
 
-            Chess.Game game = new Chess.Game();  //Chess  will be library of my game
+            Chess.Game game = new Chess.Game("rnbqknbr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w kqKQ - 0 1");  //Chess  will be library of my game
 
             string figureMove, movingFigure;
             List<string> possibleMovesForFigure;
 
-            while(true)
+            while (true)
             {
-                Console.WriteLine(game.Fen); // need to check
-                Console.WriteLine(Print(game));
+                Console.WriteLine(game.fen); // need to check
+                Print(game);
 
                 movingFigure = Console.ReadLine();
 
@@ -49,23 +49,23 @@ namespace TestConsoleOfChess
             return false;
         }
 
-        static string Print(Chess.Game game)
+        static void Print(Chess.Game game)
         {
-            string text = "  +--------+ \n";
-            for (int y = 7; y >= 0; y++)
+            string text = " +----------------+ \n";
+            for (int x = 7; x >= 0; x--)
             {
-                text += y + 1;
+                text += x + 1;
                 text += "|";
-                for (int x = 0; x < 8; x++)
+                for (int y = 0; y < 8; y++)
                 {
-                    text += game.GetFigureAt(x, y) + " ";
+                    text += game.GetFigureAt(x, y).ToString() + " ";
                 }
-                text += "|";
+                text += "|\n";
             }
-            
-            text = "  +--------+ \n";
-            text += " a b c d e f g h ";
-            return text;
+
+            text += " +----------------+ \n";
+            text += "  a b c d e f g h ";
+            Console.WriteLine(text);
         }
     }
 }
