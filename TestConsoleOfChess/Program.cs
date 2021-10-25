@@ -26,19 +26,21 @@ namespace TestConsoleOfChess
 
             while (true)
             {
-                Console.WriteLine(game.fen); // need to check
+               Console.WriteLine(game.fen); // need to check
                 Print(game);
 
                 movingFigure = Console.ReadLine();
 
-                possibleMovesForFigure = game.GetAllPossibleMovesForMovingFigure(movingFigure);
-                Console.WriteLine(possibleMovesForFigure);
+                //possibleMovesForFigure = game.GetAllPossibleMovesForMovingFigure(movingFigure);
+                //Console.WriteLine(possibleMovesForFigure);
 
                 figureMove = Console.ReadLine();
 
-                if (!MoveExist(figureMove, possibleMovesForFigure)) continue;
+                //if (!MoveExist(figureMove, possibleMovesForFigure)) continue;
 
-                game.MakeMove(movingFigure, figureMove);
+                game = game.MakeMove(movingFigure, figureMove);
+
+                //Console.WriteLine(game.fen);
             }
         }
 
@@ -52,11 +54,11 @@ namespace TestConsoleOfChess
         static void Print(Chess.Game game)
         {
             string text = " +----------------+ \n";
-            for (int x = 7; x >= 0; x--)
+            for (int y = 7; y >= 0; y--)
             {
-                text += x + 1;
+                text += y + 1;
                 text += "|";
-                for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
                 {
                     text += game.GetFigureAt(x, y).ToString() + " ";
                 }

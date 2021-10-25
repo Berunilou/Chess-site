@@ -8,21 +8,91 @@ namespace Chess
 {
     class Move
     {
-        internal static bool CanMove(string movingFigure, string move)
+        Board board;
+        public Figure figure { get; private set; }
+        public Square square { get; private set; }
+        public Move(Board board)
         {
-            return CanMoveFrom()&&CanMoveTo(movingFigure) &&CanFigureMove(movingFigure);
+            this.board = board;
         }
-        static bool CanMoveFrom()
+        internal bool CanMove(string movingFigure, string move)
         {
-            return true;
+            figure = board.GetFigureAt(new Square(movingFigure));
+            square = new Square(move);
+            return CanMoveFrom() &&
+                   CanMoveTo() && 
+                   CanFigureMove();
         }
-        static bool CanMoveTo(string movingFigure)
+        private bool CanMoveFrom()
         {
-            return true;
+            return figure.square.OnBoard() &&
+                board.moveColour==figure.colour;
         }
-        static bool CanFigureMove(string movingFigure)
+        private bool CanMoveTo()
         {
-            return true;
+            return square.OnBoard() &&
+                (figure.square.x != square.x || figure.square.y != square.y) &&
+                board.GetFigureAt(square).colour!=figure.colour;
         }
+        private bool CanFigureMove()
+        {
+            return figure.name switch
+            {
+                'k' or 'K' => CanKingMove() || CanCastling(),
+                'q' or 'Q' => CanQueenMove(),
+                'p' or 'P' => CanPawnMove(),
+                'r' or 'R' => CanRookMove(),
+                'n' or 'N' => CanKnightMove(),
+                'b' or 'B' => CanBishopMove(),
+                '.' => false,
+                _ => false
+            };
+        }
+        private bool CanKingMove()
+        {
+            return (Math.Abs(figure.square.x-square.x)<=1 && Math.Abs(figure.square.y - square.y) <= 1);
+        }
+        private bool CanBishopMove()
+        {
+            return (Math.Abs(figure.square.x - square.x)==Math.Abs(figure.square.y - square.y));
+        }
+        private bool CanKnightMove()
+        {
+            return (Math.Abs(figure.square.x - square.x) == 2 && Math.Abs(figure.square.y - square.y) == 1) ||
+                (Math.Abs(figure.square.x - square.x) == 1 && Math.Abs(figure.square.y - square.y) == 2);
+        }
+        private bool CanRookMove()
+        {
+            return (Math.Abs(figure.square.x - square.x) == 0 || Math.Abs(figure.square.y - square.y) == 0);
+        }
+        private bool CanPawnMove()
+        {
+            if(figure.colour == Colour.white && figure.square.y  == 1)
+                return (Math.Abs(figure.square.y - square.y) == 1 || Math.Abs(figure.square.y - square.y) == 2);
+            if (figure.colour == Colour.black && figure.square.y == 6)
+                return (Math.Abs(figure.square.y - square.y) == 1 || Math.Abs(figure.square.y - square.y) == 2);
+            return (Math.Abs(figure.square.y - square.y) == 1);
+        }
+        private bool CanQueenMove()
+        {
+            return (Math.Abs(figure.square.x - square.x) == Math.Abs(figure.square.y - square.y)) ||
+                (Math.Abs(figure.square.x - square.x) == 0 || Math.Abs(figure.square.y - square.y) == 0) ;
+        }
+        private bool CanCastling()
+        {
+            if(figure.colour == Colour.white)
+            {
+                if (board.castling.Contains('K') || board.castling.Contains('Q')) 
+                    return Math.Abs(figure.square.x - square.x) == 2;
+            }
+            if (figure.colour == Colour.black)
+            {
+                if (board.castling.Contains('k') || board.castling.Contains('q'))
+                    return Math.Abs(figure.square.x - square.x) == 2;
+            }
+            return false;
+        }
+
+       
     }
 }

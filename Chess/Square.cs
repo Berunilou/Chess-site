@@ -8,8 +8,8 @@ namespace Chess
 {
     class Square
     {
-        public int x { get; private set; }
-        public int y { get; private set; }
+        public int x { get; internal set; }
+        public int y { get; internal set; }
         public Square(string squareId)
         {
             if (squareId[0] >= 'a' && squareId[0] <= 'h'

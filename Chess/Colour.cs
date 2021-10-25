@@ -3,7 +3,7 @@
     public enum Colour
     {
         none,
-        white,
-        black
+        white = 'w',
+        black = 'b'
     }
 }

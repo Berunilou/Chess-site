@@ -6,7 +6,8 @@ namespace Chess
     public class Game//main class that play game
     {
         Board board;
-        public string fen{ get; private set; }
+        Move move;
+        public string fen { get; private set; }
         public Game()
         {
             this.fen = "rnbqknbr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w kqKQ -0 1";
@@ -16,6 +17,13 @@ namespace Chess
         {
             this.fen = fen;
             board = new Board(fen);
+            move = new Move(board);
+        }
+        private Game(Board board)
+        {
+            this.board = board;
+            this.fen = board.fen;
+            move = new Move(board);
         }
         public List<string> GetAllPossibleMovesForMovingFigure(string movingFigure)
         {
@@ -25,15 +33,26 @@ namespace Chess
 
             return moves;
         }
-        public void MakeMove(string movingFigure, string figureMove)
+        public Game MakeMove(string movingFigure, string figureMove)
         {
-            foreach(var existMove in AllMovesForMovingFigure(movingFigure))
-                if(figureMove == existMove)
-                {
-                    string startCell = movingFigure.Substring(1);
-                    //ChangeFigurePosition(startCell, figureMove);
-                    return;
-                }
+            if (move.CanMove(movingFigure, figureMove))
+            {
+                board.MakeMove(movingFigure, figureMove);
+                return new Game(board);
+            }
+            return this;
+        }
+        private List<string> FindAllPossibleMovesForMovingFigure(string movingFigure)
+        {
+            List<string> possibleMoves = new List<string>();
+
+            foreach (string move in AllMovesForMovingFigure(movingFigure))
+            //if (Move.CanMove(movingFigure, move))
+            {
+                possibleMoves.Add(move);
+            }
+
+            return possibleMoves;
         }
         private List<string> AllMovesForMovingFigure(string movingFigure)
         {
@@ -41,10 +60,9 @@ namespace Chess
 
             return moves;
         }
-
         public char GetFigureAt(int x, int y)
         {
-            return board.GetFigureAt(new Square(x,y)).name;
+            return board.GetFigureAt(new Square(x, y)).name;
         }
     }
 }
