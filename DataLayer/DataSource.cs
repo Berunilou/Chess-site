@@ -11,24 +11,19 @@ namespace DataLayer
     public class DataSource : DbContext
     {
         public DbSet<Player> Players { get; set; }
+        public DbSet<Anonym> Anonymous { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<Move> Moves { get; set; }
 
         public DataSource()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-0510OP3\\mssqllocaldb;Database=Chess;Trusted_Connection=True;");
-        }
-
-        public void GetAllPlayersInfo()
-        {
-            List<Player> players = new List<Player>();
-            
+            optionsBuilder.UseSqlServer("Data Source=.\\;Database=Chess;Integrated Security=True;");
         }
     }
 }

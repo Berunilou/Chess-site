@@ -11,8 +11,8 @@ namespace ConsoleFromDL
             // Добавление
             using (DataSource db = new DataSource())
             {
-                Player Player1 = new Player { Name = "Tom", Reit = 1880};
-                Player Player2 = new Player { Name = "Alice", Reit = 26 };
+                Player Player1 = new Player { Name = "Tom", Rate = 1880};
+                Player Player2 = new Player { Name = "Alice", Rate = 26 };
 
                 // Добавление
                 db.Players.Add(Player1);
@@ -28,7 +28,7 @@ namespace ConsoleFromDL
                 Console.WriteLine("Данные после добавления:");
                 foreach (Player u in Players)
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Reit}");
+                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Rate}");
                 }
             }
 
@@ -40,7 +40,7 @@ namespace ConsoleFromDL
                 if (Player != null)
                 {
                     Player.Name = "Bob";
-                    Player.Reit = 44;
+                    Player.Rate = 44;
                     //обновляем объект
                     //db.Players.Update(Player);
                     db.SaveChanges();
@@ -50,29 +50,29 @@ namespace ConsoleFromDL
                 var Players = db.Players.ToList();
                 foreach (Player u in Players)
                 {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Reit}");
+                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Rate}");
                 }
             }
 
             // Удаление
-            using (DataSource db = new DataSource())
-            {
-                // получаем первый объект
-                Player Player = db.Players.FirstOrDefault();
-                if (Player != null)
-                {
-                    //удаляем объект
-                    db.Players.Remove(Player);
-                    db.SaveChanges();
-                }
-                // выводим данные после обновления
-                Console.WriteLine("\nДанные после удаления:");
-                var Players = db.Players.ToList();
-                foreach (Player u in Players)
-                {
-                    Console.WriteLine($"{u.Id}.{u.Name} - {u.Reit}");
-                }
-            }
+            //using (DataSource db = new DataSource())
+            //{
+            //    // получаем первый объект
+            //    Player Player = db.Players.FirstOrDefault();
+            //    if (Player != null)
+            //    {
+            //        //удаляем объект
+            //        db.Players.Remove(Player);
+            //        db.SaveChanges();
+            //    }
+            //    // выводим данные после обновления
+            //    Console.WriteLine("\nДанные после удаления:");
+            //    var Players = db.Players.ToList();
+            //    foreach (Player u in Players)
+            //    {
+            //        Console.WriteLine($"{u.Id}.{u.Name} - {u.Rate}");
+            //    }
+            //}
             Console.Read();
         }
     }

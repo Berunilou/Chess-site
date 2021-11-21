@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Entities
 {
-    public class Match
+    public class Move
     {
         public int Id { get; set; }
         public int GameId { get; set; }
         public int PlayerId { get; set; }
-        public PlayerGameColour PlayerColour { get; set; }
-        public int ChangeOfReit { get; set; }
-
-        //public List<string> gamehisory { get; set; }
+        public string CurrentFEN { get; set; }
+        public string NextMove { get; set; }
     }
 }

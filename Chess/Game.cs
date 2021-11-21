@@ -60,6 +60,10 @@ namespace Chess
 
             return moves;
         }
+        public char GetFigureAt(string figure)
+        {
+            return board.GetFigureAt(new Square(figure)).name;
+        }
         public char GetFigureAt(int x, int y)
         {
             return board.GetFigureAt(new Square(x, y)).name;

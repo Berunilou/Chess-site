@@ -27,11 +27,11 @@ namespace TestConsoleOfChess
             while (true)
             {
                Console.WriteLine(game.fen); // need to check
-                Print(game);
+               Print(game);
 
                 movingFigure = Console.ReadLine();
 
-                //possibleMovesForFigure = game.GetAllPossibleMovesForMovingFigure(movingFigure);
+                possibleMovesForFigure = game.GetAllPossibleMovesForMovingFigure(movingFigure);
                 //Console.WriteLine(possibleMovesForFigure);
 
                 figureMove = Console.ReadLine();
