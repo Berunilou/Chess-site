@@ -9,22 +9,22 @@ namespace ConsoleFromDL
         static void Main(string[] args)
         {
             // Добавление
-            using (DataSource db = new DataSource())
+            using (DataSource ds = new DataSource())
             {
                 Player Player1 = new Player { Name = "Tom", Rate = 1880};
                 Player Player2 = new Player { Name = "Alice", Rate = 26 };
 
                 // Добавление
-                db.Players.Add(Player1);
-                db.Players.Add(Player2);
-                db.SaveChanges();
+                ds.Players.Add(Player1);
+                ds.Players.Add(Player2);
+                ds.SaveChanges();
             }
 
             // получение
-            using (DataSource db = new DataSource())
+            using (DataSource ds = new DataSource())
             {
                 // получаем объекты из бд и выводим на консоль
-                var Players = db.Players.ToList();
+                var Players = ds.Players.ToList();
                 Console.WriteLine("Данные после добавления:");
                 foreach (Player u in Players)
                 {
@@ -33,21 +33,21 @@ namespace ConsoleFromDL
             }
 
             // Редактирование
-            using (DataSource db = new DataSource())
+            using (DataSource ds = new DataSource())
             {
                 // получаем первый объект
-                Player Player = db.Players.FirstOrDefault();
+                Player Player = ds.Players.FirstOrDefault();
                 if (Player != null)
                 {
                     Player.Name = "Bob";
                     Player.Rate = 44;
                     //обновляем объект
-                    //db.Players.Update(Player);
-                    db.SaveChanges();
+                    //ds.Players.Update(Player);
+                    ds.SaveChanges();
                 }
                 // выводим данные после обновления
                 Console.WriteLine("\nДанные после редактирования:");
-                var Players = db.Players.ToList();
+                var Players = ds.Players.ToList();
                 foreach (Player u in Players)
                 {
                     Console.WriteLine($"{u.Id}.{u.Name} - {u.Rate}");

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class MatchServices
+    public class MatchServices
     {
         private DataSource ds;
         public MatchServices()

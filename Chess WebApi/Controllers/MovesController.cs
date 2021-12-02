@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,27 +12,26 @@ namespace Chess_WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
+    public class MovesController : ControllerBase
     {
         private DataSource ds;
-        public PlayersController()
+        public MovesController()
         {
             ds = new DataSource(); //?
         }
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Player>>> Get()
+        public async Task<ActionResult<IEnumerable<Move>>> Get()
         {
-            return await ds.Players.ToListAsync();
+            return await ds.Moves.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Player>> Get(int id)
+        public async Task<ActionResult<Move>> Get(int id)
         {
-            Player Player = await ds.Players.FirstOrDefaultAsync(x => x.Id == id);
-            if (Player == null)
+            var Move = await ds.Moves.FirstOrDefaultAsync(x => x.Id == id);
+            if (Move == null)
                 return NotFound();
-            return new ObjectResult(Player);
+            return new ObjectResult(Move);
         }
     }
 }

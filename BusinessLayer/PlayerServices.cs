@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class PlayerServices
+    public class PlayerServices
     {
         GameServices gs;
+        DataSource ds;
         public PlayerServices()
         {
             gs = new GameServices();
-            using (DataSource ds = new DataSource())
-            {
-                ds.Anonymous.Add(new Anonym {Name = "Anonymous"});
-                ds.SaveChanges();
-            }
-        }
+            ds = new DataSource();
 
+            ds.Anonymous.Add(new Anonym { Name = "Anonymous" });
+            ds.SaveChanges();
+
+        }
         public void StartGame()
         {
             using (DataSource ds = new DataSource())
@@ -39,7 +39,6 @@ namespace BusinessLayer
                 }
             }
         }
-
         public void PlayerCreating(string UserEmail, string UserPassword, string UserName)
         {
             using (DataSource ds = new DataSource())
@@ -64,9 +63,41 @@ namespace BusinessLayer
                 if (User.Count != 0)
                 {
                     //foreach (var player in User)
-                        //ds.GetPlayerInfo();
+                    //ds.GetPlayerInfo();
                 }
             }
         }
+        //public void RateCalculation(Player player1, Player player2, double player1Points)
+        //{
+        //    var player1DeltaRate = 1 / (1 + Math.Pow(10, (player2.Rate - player1.Rate) / 400));
+        //    var player2DeltaRate = 1 / (1 + Math.Pow(10, (player1.Rate - player2.Rate) / 400));
+
+        //    var player1AtDB = ds.Players.Find(player1.Id);
+        //    var player2AtDB = ds.Players.Find(player2.Id);
+
+        //    if (player1.GameNumber < 40 || player1.Rate < 2300)
+        //    {
+        //        player1AtDB.Rate += 40 * (player1Points - player1DeltaRate);
+        //    }
+        //    else
+        //    {
+        //        if (player1.Rate < 2400)
+        //            player1AtDB.Rate += 20 * (player1Points - player1DeltaRate);
+        //        else
+        //            player1AtDB.Rate += 10 * (player1Points - player1DeltaRate);
+        //    }
+
+        //    if (player2.GameNumber < 40)
+        //    {
+        //        player2AtDB.Rate += 40 * (1 - player1Points - player2DeltaRate);
+        //    }
+        //    else
+        //    {
+        //        if (player2.Rate < 2400)
+        //            player2AtDB.Rate += 20 * (1 - player1Points - player2DeltaRate);
+        //        else
+        //            player2AtDB.Rate += 10 * (1 - player1Points - player2DeltaRate);
+        //    }
+        //}
     }
 }

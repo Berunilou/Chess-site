@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class GameServices
+    public class GameServices
     {
         private DataSource ds;
         public GameServices()

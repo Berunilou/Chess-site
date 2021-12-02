@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class MovesServices
+    public class MovesServices
     {
         private DataSource ds;
         public MovesServices()
@@ -22,7 +22,7 @@ namespace BusinessLayer
                 GameId = game.Id,
                 PlayerId = player.Id,
                 CurrentFEN = game.Fen,
-                NextMove = " "
+                NextMove = move
             });
             ds.SaveChanges();
         }

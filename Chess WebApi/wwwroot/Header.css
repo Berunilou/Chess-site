@@ -1,0 +1,32 @@
+﻿a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+div {
+    margin: 0;
+    text-align: center;
+    position: absolute;
+}
+
+.HeaderBlock {
+    height: 50px;   
+}
+
+.Main {
+    width: 300px;
+    background-color: red;
+}
+
+.Game {
+    width: 300px;
+    margin-left: 300px;
+    background-color: blue;
+}
+
+.Profile {
+    width: 300px;
+    margin-left: 600px;
+    background-color: green;
+}
